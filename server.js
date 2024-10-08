@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth/authRoutes');
 const supRouter = require('./routes/super_admin/supRoutes');
-const menuRouter = require('./routes/menus/menuRoutes');
+const menuRouter = require('./routes/menus/MenuRoutes');
 const permissionRouter = require('./routes/permisssion/permissionRoute');
 const adminRouter = require('./routes/admin/admin/adminRoutes');
 const { login_mechanism_router, loadDataIntoMemory } = require('./Login_mechanism/login_mechanism_routes');
