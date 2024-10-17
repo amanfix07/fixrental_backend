@@ -67,8 +67,8 @@ const updateBooking = async (req, res) => {
 
             let finalPaymentInfo = {
                 paymentType: paymentInfo.paymentType || "",
-                SecurityCheque: paymentInfo.SecurityCheque || {},
-                AdvancePayment: paymentInfo.AdvancePayment || {}
+                SecurityCheque: paymentInfo.paymentType=="AdvancePayment"?{}:paymentInfo.SecurityCheque || {},
+                AdvancePayment: paymentInfo.paymentType=="SecurityCheque"?{}:paymentInfo.AdvancePayment || {}
             };
 
             if (req.files) {
@@ -77,9 +77,25 @@ const updateBooking = async (req, res) => {
                     finalPaymentInfo.SecurityCheque.chequeImage = chequeImageFile.filename;
                 }
 
-                if (finalPaymentInfo.paymentType === "AdvancePayment" && req.files['AdvancePayment.chequeImage']) {
+                if (finalPaymentInfo.paymentType === "AdvancePayment" && finalPaymentInfo.AdvancePayment.advancePaymentType == "Cheque" && req.files['AdvancePayment.chequeImage']) {
                     const chequeImageFile = req.files['AdvancePayment.chequeImage'][0];
                     finalPaymentInfo.AdvancePayment.cheque.chequeImage = chequeImageFile.filename;
+                }
+
+                if (finalPaymentInfo.paymentType === 'SecurityChequeAndAdvancePayment') {
+                    console.log("1")
+                    if (req.files['SecurityCheque.chequeImage']) {
+                        const chequeImageFile = req.files['SecurityCheque.chequeImage'][0];
+                        finalPaymentInfo.SecurityCheque.chequeImage = chequeImageFile.filename;
+                        console.log("2")
+                    }
+                    if (finalPaymentInfo.paymentType === "AdvancePayment" && finalPaymentInfo.AdvancePayment.advancePaymentType == "Cheque") {
+                        if (req.files['AdvancePayment.chequeImage']) {
+                            const chequeImageFile = req.files['AdvancePayment.chequeImage'][0];
+                            finalPaymentInfo.AdvancePayment.cheque.chequeImage = chequeImageFile.filename;
+                        }else return res.status(400).json({message:"Cheque Image is required"})
+                        console.log("3")
+                    }
                 }
             }
 

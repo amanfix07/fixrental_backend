@@ -19,8 +19,8 @@ const getAllAdmins = async (req, res) => {
     // console.log('Filter params :', filterParams);
     // console.log('Filter :', filter);
     // console.log(page,"  ",limit)
-    const resdata=await getPaginatedData('masheen_rental','admins',page,limit,filterParams,filter)
-    // const resdata=await getPaginatedData('machine_rental','admins',page,limit,filterParams,filter)
+    const resdata=await getPaginatedData('machine_rental','admins',page,limit,filterParams,filter)
+    // const resdata=await getPaginatedData('masheen_rental','admins',page,limit,filterParams,filter)
 
     resdata ? res.status(200).send(resdata) : res.status(404);
 }

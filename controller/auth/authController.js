@@ -1055,7 +1055,8 @@ const pageValidteController = async (req, res) => {
     // // console.log("Body",req.body)
     const role = req.userInfo.role
     let { currentPath } = req.body;
-    currentPath = currentPath?.slice(12, 15);
+    currentPath = currentPath?.slice(1, 4);
+    // console.log(currentPath,"******************************")
     if (role === "SUPERADMIN" && currentPath === "sup") return res.status(200).json({ isVerified: true });
     else if (role != "SUPERADMIN") {
         // return res.status(200).json({ isVerified: true });
@@ -1087,8 +1088,8 @@ const roleBasedAuth = async (req, res) => {
         let { currentPath } = req.body;
 
         // Clean up the currentPath
-        // console.log(currentPath)
-        currentPath = currentPath?.slice(11)?.replace(/\/$/, '');
+        // console.log(currentPath,"---------")
+        // currentPath = currentPath?.slice(11)?.replace(/\/$/, '');
         // console.log(currentPath)
 
         const roleDetails = await masheenDB.collection("roles").findOne({ roleName: new RegExp(role, 'i') });

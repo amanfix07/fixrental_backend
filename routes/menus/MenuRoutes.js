@@ -1,10 +1,10 @@
 const express = require('express');
 const { getAllMenus, getAllMenusForSideBar } = require('../../controller/menu/MenuController');
 const {authenticateJWT} = require('../../middlewares/jwtVerification')
-const router = express.Router();
+const menuRouter = express.Router();
 
-router.get('/getAll', getAllMenus)
+menuRouter.get('/getAll', getAllMenus)
 
-router.get('/getAllMenusForSideBar', authenticateJWT, getAllMenusForSideBar)
+menuRouter.get('/getAllMenusForSideBar', authenticateJWT, getAllMenusForSideBar)
 
-module.exports = router;
+module.exports = menuRouter;
